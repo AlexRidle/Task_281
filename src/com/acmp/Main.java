@@ -27,12 +27,18 @@ public class Main {
         Scanner inputFile = new Scanner(file);
         coinFlipCount = inputFile.nextByte();
         tailCountToWin = inputFile.nextByte();
-        if (!(1<coinFlipCount || coinFlipCount <= 20 || 0 <= tailCountToWin || tailCountToWin <= coinFlipCount)) {
+        checkInputFile();
+    }
+
+    private static void checkInputFile() throws TaskException {
+        boolean rightCoinFlipCount = 1 < coinFlipCount || coinFlipCount <= 20;
+        boolean rightWinCondition = 0 <= tailCountToWin || tailCountToWin <= coinFlipCount;
+        if (!(rightCoinFlipCount || rightWinCondition)) {
             throw new TaskException("Please, check INPUT.txt file. 1 < N <= 20 and 0 <= M <= N");
         }
     }
 
-    private static void calculateResult(){
+    private static void calculateResult() {
         result = 0;
         for (byte i = tailCountToWin; i <= coinFlipCount; i++) {
             result += (getFactorial(coinFlipCount)) / (getFactorial(coinFlipCount - i) * getFactorial(i));
